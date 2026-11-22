@@ -19,6 +19,12 @@ import com.twobrain.app.ui.HomeScreen
 import com.twobrain.app.ui.LocalPhotoPainter
 import com.twobrain.app.ui.WelcomeScreen
 import com.twobrain.app.ui.theme.TwoBrainTheme
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -99,6 +105,25 @@ class ScreenshotTest {
     }
 
     @Test fun welcome() = shoot("00_welcome") { WelcomeScreen(micDenied = false, onContinue = {}, frozenOrb = 0.3f) }
+
+    @Test fun launcher_icon() = shoot("08_app_icon") {
+        val fg = androidx.compose.ui.res.painterResource(R.drawable.ic_launcher_foreground)
+        androidx.compose.foundation.layout.Row(
+            androidx.compose.ui.Modifier.background(androidx.compose.ui.graphics.Color(0xFFE9E5DF)).padding(24.dp),
+            horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(24.dp),
+        ) {
+            listOf(androidx.compose.foundation.shape.CircleShape, androidx.compose.foundation.shape.RoundedCornerShape(30), androidx.compose.foundation.shape.RoundedCornerShape(12))
+                .forEach { shape ->
+                    // Launchers show the middle 72dp of the 108dp adaptive layer, masked to a shape.
+                    androidx.compose.foundation.layout.Box(
+                        androidx.compose.ui.Modifier.size(96.dp).clip(shape).background(androidx.compose.ui.graphics.Color.White),
+                        contentAlignment = androidx.compose.ui.Alignment.Center,
+                    ) {
+                        androidx.compose.foundation.Image(fg, null, androidx.compose.ui.Modifier.requiredSize(144.dp))
+                    }
+                }
+        }
+    }
 
     /** Soft abstract gradients standing in for camera-roll photos. */
     private fun sample(i: Int): Bitmap {

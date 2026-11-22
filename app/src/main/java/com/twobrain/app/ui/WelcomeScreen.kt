@@ -16,7 +16,10 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.ui.res.painterResource
+import com.twobrain.app.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,7 +42,9 @@ fun WelcomeScreen(micDenied: Boolean, onContinue: () -> Unit, frozenOrb: Float? 
             Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.statusBars).windowInsetsPadding(WindowInsets.navigationBars)
                 .padding(horizontal = 28.dp)
         ) {
-            Spacer(Modifier.height(72.dp))
+            Spacer(Modifier.height(56.dp))
+            Icon(painterResource(R.drawable.ic_logo_mark), contentDescription = "2brain", tint = c.ink, modifier = Modifier.height(30.dp))
+            Spacer(Modifier.height(36.dp))
             Text("Hey.", style = t.greeting, color = c.ink)
             Text("I'm 2brain.", style = t.greeting, color = c.muted)
             Spacer(Modifier.height(28.dp))
